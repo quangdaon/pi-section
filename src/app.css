@@ -1,0 +1,17 @@
+:root {
+  --color-1-definition: 166, 168, 103;
+  --color-2-definition: 227, 220, 149;
+  --color-foreground-definition: 227, 220, 194;
+
+  --color-background: #1b2021;
+  --color-tint: #51513d;
+  --color-1: rgb(var(--color-1-definition));
+  --color-2: rgb(var(--color-2-definition));
+  --color-foreground: rgb(var(--color-foreground-definition));
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  margin: 0;
+}
