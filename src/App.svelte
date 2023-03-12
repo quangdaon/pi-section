@@ -1,16 +1,20 @@
 <script lang="ts">
+  import PolygonSideSelector from './components/PolygonSideSelector.svelte';
   import PolygonSummary from './components/PolygonSummary.svelte';
   import { CANVAS_SIZE, UNIT_SCALE } from './config/constants';
   import { Polygon } from './lib/polygon';
 
-  let inscribedIntensity = 1;
-  let circumscribedIntensity = 1;
+  let linked = false;
 
-  $: inscribedSides = 2 ** inscribedIntensity * 3;
-  $: circumscribedSides = 2 ** circumscribedIntensity * 3;
+  let inscribedSides = 6;
+  let circumscribedSides = 4;
 
   $: inscribedPolygon = Polygon.inscribed(inscribedSides);
   $: circumscribedPolygon = Polygon.circumscribed(circumscribedSides);
+
+  $: if (linked) {
+    circumscribedSides = inscribedSides;
+  }
 </script>
 
 <main>
@@ -26,36 +30,29 @@
 
   <div class="settings">
     <div class="sides-selectors">
-      <div class="sides-selector">
-        <label for="inscribedSides">Inscribed Polygon Sides</label>
-        <input
-          id="inscribedSides"
-          type="range"
-          bind:value={inscribedIntensity}
-          min="1"
-          max="12"
-        />
-        {inscribedSides}
-      </div>
-      <div class="sides-selector">
-        <label for="circumscribedSides">Circumscribed Polygon Sides</label>
-        <input
-          id="circumscribedSides"
-          type="range"
-          bind:value={circumscribedIntensity}
-          min="1"
-          max="12"
-        />
-        {circumscribedSides}
+      <PolygonSideSelector
+        bind:sides={inscribedSides}
+        title="Inscribed Polygon Sides"
+        id="inscribedSides"
+      />
+      <PolygonSideSelector
+        bind:sides={circumscribedSides}
+        title="Circumscribed Polygon Sides"
+        id="circumscribedSides"
+        disabled={linked}
+      />
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <div class="linked-toggle" class:active={linked}>
+        <button on:click={() => (linked = !linked)}>🔗</button>
       </div>
     </div>
   </div>
 
   <div class="info">
     <p><b>Pi Lower Bound: </b>{inscribedPolygon.perimeter / 2}</p>
-    <p><b>Error: </b>{Math.PI - (inscribedPolygon.perimeter / 2)}</p>
+    <p><b>Error: </b>{Math.PI - inscribedPolygon.perimeter / 2}</p>
     <p><b>Pi Upper Bound: </b>{circumscribedPolygon.perimeter / 2}</p>
-    <p><b>Error: </b>{Math.PI - (circumscribedPolygon.perimeter / 2)}</p>
+    <p><b>Error: </b>{Math.PI - circumscribedPolygon.perimeter / 2}</p>
     <PolygonSummary polygon={inscribedPolygon} title="Inscribed" />
     <PolygonSummary polygon={circumscribedPolygon} title="Circumscribed" />
   </div>
@@ -89,8 +86,15 @@
     fill: rgba(var(--color-foreground-definition), 0.2);
   }
 
-  .sides-selector {
-    display: flex;
-    align-items: center;
+  .linked-toggle button {
+    background: transparent;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    opacity: 0.5;
+  }
+
+  .linked-toggle.active button {
+    opacity: 1;
   }
 </style>
