@@ -1,9 +1,13 @@
 <script lang="ts">
+  import PolygonSummary from './components/PolygonSummary.svelte';
   import { CANVAS_SIZE, UNIT_SCALE } from './config/constants';
   import { Polygon } from './lib/polygon';
 
-  let inscribedSides = 6;
-  let circumscribedSides = 6;
+  let inscribedIntensity = 1;
+  let circumscribedIntensity = 1;
+
+  $: inscribedSides = 2 ** inscribedIntensity * 3;
+  $: circumscribedSides = 2 ** circumscribedIntensity * 3;
 
   $: inscribedPolygon = Polygon.inscribed(inscribedSides);
   $: circumscribedPolygon = Polygon.circumscribed(circumscribedSides);
@@ -27,9 +31,9 @@
         <input
           id="inscribedSides"
           type="range"
-          bind:value={inscribedSides}
-          min="4"
-          max="100"
+          bind:value={inscribedIntensity}
+          min="1"
+          max="12"
         />
         {inscribedSides}
       </div>
@@ -38,13 +42,22 @@
         <input
           id="circumscribedSides"
           type="range"
-          bind:value={circumscribedSides}
-          min="4"
-          max="100"
+          bind:value={circumscribedIntensity}
+          min="1"
+          max="12"
         />
         {circumscribedSides}
       </div>
     </div>
+  </div>
+
+  <div class="info">
+    <p><b>Pi Lower Bound: </b>{inscribedPolygon.perimeter / 2}</p>
+    <p><b>Error: </b>{Math.PI - (inscribedPolygon.perimeter / 2)}</p>
+    <p><b>Pi Upper Bound: </b>{circumscribedPolygon.perimeter / 2}</p>
+    <p><b>Error: </b>{Math.PI - (circumscribedPolygon.perimeter / 2)}</p>
+    <PolygonSummary polygon={inscribedPolygon} title="Inscribed" />
+    <PolygonSummary polygon={circumscribedPolygon} title="Circumscribed" />
   </div>
 </main>
 
