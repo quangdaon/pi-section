@@ -1,17 +1,16 @@
 <script lang="ts">
-  import { text } from 'svelte/internal';
   import type { Polygon } from '../lib/polygon';
   import {
-    fillShapes,
-    showCircle,
-    showCircumscribed,
-    showCircumscribedSegments,
-    showInscribed,
-    showInscribedSegments,
+    isShapeFillVisible,
+    isCircleVisible,
+    isCircumscribedVisible,
+    isCircumscribedSegmentsVisible,
+    isInscribedVisible,
+    isInscribedSegmentsVisible,
   } from '../stores/settings';
 
   const UNIT_SCALE = 800;
-  const CANVAS_SIZE = UNIT_SCALE * Math.sqrt(2) * 2;
+  const CANVAS_SIZE = UNIT_SCALE * 3;
 
   export let inscribedPolygon: Polygon;
   export let circumscribedPolygon: Polygon;
@@ -29,12 +28,11 @@
 
 <svg
   id="canvas"
-  class:filled={$fillShapes}
+  class:filled={$isShapeFillVisible}
   viewBox="0 0 {CANVAS_SIZE} {CANVAS_SIZE}"
   xmlns="http://www.w3.org/2000/svg"
-  style="--stroke-width: {UNIT_SCALE / 300}"
 >
-  {#if !$showCircle && !$showCircumscribed && !$showInscribed}
+  {#if !$isCircleVisible && !$isCircumscribedVisible && !$isInscribedVisible}
     <text
       text-anchor="middle"
       x={CANVAS_SIZE / 2}
@@ -42,15 +40,15 @@
       font-size={UNIT_SCALE * 0.2}>Lol, for real?</text
     >
   {/if}
-  {#if $showCircle}
+  {#if $isCircleVisible}
     <circle cx={CANVAS_SIZE / 2} cy={CANVAS_SIZE / 2} r={UNIT_SCALE} />
   {/if}
 
-  {#if $showCircumscribed}
+  {#if $isCircumscribedVisible}
     <g class="circumscribed">
       <polygon points={getPointsString(circumscribedPolygon.points)} />
 
-      {#if $showCircumscribedSegments}
+      {#if $isCircumscribedSegmentsVisible}
         {#each circumscribedPolygon.points as point}
           <line
             x1={CANVAS_SIZE / 2}
@@ -63,11 +61,11 @@
     </g>
   {/if}
 
-  {#if $showInscribed}
+  {#if $isInscribedVisible}
     <g class="inscribed">
       <polygon points={getPointsString(inscribedPolygon.points)} />
 
-      {#if $showInscribedSegments}
+      {#if $isInscribedSegmentsVisible}
         {#each inscribedPolygon.points as point}
           <line
             x1={CANVAS_SIZE / 2}
