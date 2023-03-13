@@ -58,7 +58,7 @@
       id="offset-circumscribed"
       type="checkbox"
       bind:checked={$offsetCircumscribed}
-      disabled={$showCircumscribed}
+      disabled={!$showCircumscribed}
     />
   </label>
 </div>
