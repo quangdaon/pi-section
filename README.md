@@ -1,6 +1,6 @@
-# Svelte + TS + Vite
+# Pi Day 2023: Pi-Section
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+A visual illustration of Archimedes' method of deducing the value of pi.
 
 ## Recommended IDE Setup
 
