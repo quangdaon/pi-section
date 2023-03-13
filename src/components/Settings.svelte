@@ -1,5 +1,5 @@
 <script>
-  import { circumscribedSides, inscribedSides } from '../stores/settings';
+  import { circumscribedSides, inscribedSides, offsetCircumscribed } from '../stores/settings';
 
   import PolygonSideSelector from './PolygonSideSelector.svelte';
   let linked = false;
@@ -30,6 +30,11 @@
       <input id="linked" type="checkbox" bind:checked={linked} />
       <label for="linked">🔗</label>
     </div>
+  </div>
+
+  <div class="checkbox-field">
+    <label for="offset-circumscribed">Offset Circumscribed Polygon Angle</label>
+    <input id="offset-circumscribed" type="checkbox" bind:checked={$offsetCircumscribed}>
   </div>
 </div>
 

@@ -3,11 +3,11 @@
   import Results from './components/Results.svelte';
   import Settings from './components/Settings.svelte';
   import { Polygon } from './lib/polygon';
-  import { circumscribedSides, inscribedSides } from './stores/settings';
+  import { circumscribedSides, inscribedSides, offsetCircumscribed } from './stores/settings';
 
 
   $: inscribedPolygon = Polygon.inscribed($inscribedSides);
-  $: circumscribedPolygon = Polygon.circumscribed($circumscribedSides);
+  $: circumscribedPolygon = Polygon.circumscribed($circumscribedSides, $offsetCircumscribed);
 
 </script>
 

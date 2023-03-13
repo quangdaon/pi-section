@@ -4,6 +4,12 @@
 
   export let inscribedPolygon: Polygon;
   export let circumscribedPolygon: Polygon;
+
+  $: piLow = inscribedPolygon.perimeter / 2;
+  $: piLowError = Math.PI - piLow;
+
+  $: piHigh = circumscribedPolygon.perimeter / 2;
+  $: piHighError = Math.PI - piHigh;
 </script>
 
 <div class="results">
@@ -12,14 +18,14 @@
     <summary><h3>Estimates</h3></summary>
     <p>
       <b>Pi Lower Bound:</b>
-      <abbr title="Error: {Math.PI - inscribedPolygon.perimeter / 2}">
-        {inscribedPolygon.perimeter / 2}
+      <abbr title="Error: {piLowError}">
+        {piLow}
       </abbr>
     </p>
     <p>
       <b>Pi Upper Bound:</b>
-      <abbr title="Error: {Math.PI - circumscribedPolygon.perimeter / 2}">
-        {circumscribedPolygon.perimeter / 2}
+      <abbr title="Error: {piHighError}">
+        {piHigh}
       </abbr>
     </p>
   </details>
