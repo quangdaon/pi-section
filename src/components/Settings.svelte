@@ -52,15 +52,15 @@
 
   <div class="toggles">
     <label class="checkbox-field">
-      Fill Shapes
-      <input type="checkbox" bind:checked={$fillShapes} />
-    </label>
-
-    <label class="checkbox-field">
       Show Circle
       <input type="checkbox" bind:checked={$showCircle} />
     </label>
-
+    
+    <label class="checkbox-field">
+      Fill Shapes
+      <input type="checkbox" bind:checked={$fillShapes} />
+    </label>
+    
     <label class="checkbox-field">
       Show Inner Polygon
       <input type="checkbox" bind:checked={$showInscribed} />
