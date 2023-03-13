@@ -32,13 +32,13 @@
 
   circle {
     stroke: var(--color-1);
-    stroke-width: 1;
-    stroke-dasharray: 5;
+    stroke-width: 6;
+    stroke-dasharray: 12;
     fill: rgba(var(--color-1-definition), 0.2);
   }
 
   polygon {
-    stroke-width: 1;
+    stroke-width: 3;
   }
 
   polygon.inscribed {
