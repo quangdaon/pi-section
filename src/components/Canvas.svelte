@@ -1,6 +1,7 @@
 <script lang="ts">
   import { CANVAS_SIZE, UNIT_SCALE } from '../config/constants';
   import type { Polygon } from '../lib/polygon';
+  import { showCircumscribed, showInscribed } from '../stores/settings';
 
   export let inscribedPolygon: Polygon;
   export let circumscribedPolygon: Polygon;
@@ -11,9 +12,15 @@
   viewBox="0 0 {CANVAS_SIZE} {CANVAS_SIZE}"
   xmlns="http://www.w3.org/2000/svg"
 >
-  <polygon class="circumscribed" points={circumscribedPolygon.points} />
+  {#if $showCircumscribed}
+    <polygon class="circumscribed" points={circumscribedPolygon.points} />
+  {/if}
+
   <circle cx={CANVAS_SIZE / 2} cy={CANVAS_SIZE / 2} r={UNIT_SCALE} />
-  <polygon class="inscribed" points={inscribedPolygon.points} />
+
+  {#if $showInscribed}
+    <polygon class="inscribed" points={inscribedPolygon.points} />
+  {/if}
 </svg>
 
 <style>

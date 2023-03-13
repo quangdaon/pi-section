@@ -1,5 +1,11 @@
 <script>
-  import { circumscribedSides, inscribedSides, offsetCircumscribed } from '../stores/settings';
+  import {
+    circumscribedSides,
+    inscribedSides,
+    offsetCircumscribed,
+    showCircumscribed,
+    showInscribed,
+  } from '../stores/settings';
 
   import PolygonSideSelector from './PolygonSideSelector.svelte';
   let linked = false;
@@ -32,10 +38,29 @@
     </div>
   </div>
 
-  <div class="checkbox-field">
-    <label for="offset-circumscribed">Offset Circumscribed Polygon Angle</label>
-    <input id="offset-circumscribed" type="checkbox" bind:checked={$offsetCircumscribed}>
-  </div>
+  <label class="checkbox-field" for="show-inscribed"
+    >Show Inscribed Polygon
+    <input id="show-inscribed" type="checkbox" bind:checked={$showInscribed} />
+  </label>
+
+  <label class="checkbox-field" for="show-circumscribed"
+    >Show Circumscribed Polygon
+    <input
+      id="show-circumscribed"
+      type="checkbox"
+      bind:checked={$showCircumscribed}
+    />
+  </label>
+
+  <label class="checkbox-field" for="offset-circumscribed"
+    >Offset Circumscribed Polygon Angle
+    <input
+      id="offset-circumscribed"
+      type="checkbox"
+      bind:checked={$offsetCircumscribed}
+      disabled={$showCircumscribed}
+    />
+  </label>
 </div>
 
 <style>
@@ -45,6 +70,7 @@
 
   .sides-selectors-container {
     text-align: center;
+    padding: 0 0.5em;
   }
 
   #linked {
@@ -60,6 +86,16 @@
 
   #linked:checked + label {
     opacity: 1;
+  }
+
+  .checkbox-field {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em;
+  }
+
+  .checkbox-field:hover {
+    background: var(--color-tint);
   }
 
   @media only screen and (min-width: 600px) {

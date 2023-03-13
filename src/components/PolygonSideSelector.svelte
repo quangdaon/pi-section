@@ -3,6 +3,10 @@
   export let id: string;
   export let sides: number;
   export let disabled: boolean = false;
+
+  const min = 4;
+  const max = 20000;
+  const step = 1;
 </script>
 
 <div class="sides-selector">
@@ -12,18 +16,18 @@
     class="range"
     type="range"
     bind:value={sides}
-    min="4"
-    max="20000"
-    step="2"
+    {min}
+    {max}
+    {step}
     {disabled}
   />
   <input
     class="numeric"
     type="number"
     bind:value={sides}
-    min="4"
-    max="20000"
-    step="2"
+    {min}
+    {max}
+    {step}
     {disabled}
   />
 </div>
@@ -53,5 +57,12 @@
     color: inherit;
     font-family: inherit;
     font-size: 1em;
+    -moz-appearance: textfield;
+  }
+
+  .numeric::-webkit-inner-spin-button,
+  .numeric::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 </style>
