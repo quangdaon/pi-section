@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
 :root {
   --color-1-definition: 166, 168, 103;
   --color-2-definition: 227, 220, 149;
@@ -13,5 +15,19 @@
 body {
   background-color: var(--color-background);
   color: var(--color-foreground);
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+}
+
+details {
+  margin: 1em 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+summary h3 {
+  display: inline-block;
   margin: 0;
 }

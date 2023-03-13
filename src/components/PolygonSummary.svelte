@@ -6,7 +6,7 @@
 </script>
 
 <details open>
-  <summary>{title}</summary>
+  <summary><h3>{title}</h3></summary>
   <p><b>Edge Length:</b> {polygon.edgeLength}</p>
-  <p><b>Perimater:</b> {polygon.perimeter}</p>
+  <p><b>Perimeter:</b> {polygon.perimeter}</p>
 </details>
