@@ -1,14 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
 
 :root {
-  --color-1-definition: 166, 168, 103;
-  --color-2-definition: 227, 220, 149;
+  --color-1-definition: 115, 210, 222;
+  --color-2-definition: 242, 100, 25;
+  --color-3-definition: 113, 247, 159;
   --color-foreground-definition: 227, 220, 194;
 
   --color-background: #1b2021;
   --color-tint: #51513d;
   --color-1: rgb(var(--color-1-definition));
   --color-2: rgb(var(--color-2-definition));
+  --color-3: rgb(var(--color-3-definition));
   --color-foreground: rgb(var(--color-foreground-definition));
 }
 

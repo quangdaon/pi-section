@@ -5,14 +5,13 @@
   export let disabled: boolean = false;
 
   const min = 4;
-  const max = 20000;
+  const max = 128;
   const step = 1;
 </script>
 
 <div class="sides-selector">
   <label for={id}>{title}</label>
   <input
-    {id}
     class="range"
     type="range"
     bind:value={sides}
@@ -22,6 +21,7 @@
     {disabled}
   />
   <input
+    {id}
     class="numeric"
     type="number"
     bind:value={sides}
@@ -49,7 +49,7 @@
   }
 
   .numeric {
-    flex: 0 1 4em;
+    flex: 0 1 2.825em;
     width: fit-content;
     min-width: 0;
     background: transparent;

@@ -1,6 +1,3 @@
-import { CANVAS_SIZE, UNIT_SCALE } from '../config/constants';
-import { offsetCircumscribed } from '../stores/settings';
-
 export type Coordinates = [number, number];
 
 const rotate = ([x, y]: Coordinates, theta: number): Coordinates => {
@@ -11,15 +8,12 @@ const rotate = ([x, y]: Coordinates, theta: number): Coordinates => {
 };
 
 export class Polygon {
-  public points: string;
+  public points: Coordinates[];
   public edgeLength: number;
   public perimeter: number;
-  private center: number;
   private angle: number;
-  private offsetCircumscribed: boolean;
 
   private constructor(public sides: number, private startPoint: Coordinates) {
-    this.center = CANVAS_SIZE / 2;
     this.angle = (Math.PI * 2) / this.sides;
 
     this.edgeLength = this.calculateEdgeLength(this.startPoint);
@@ -43,11 +37,7 @@ export class Polygon {
       points.push(rotate(startPoint, this.angle * i));
     }
 
-    const scaledPoints = points.map((p) =>
-      p.map((i: number) => this.center + i * UNIT_SCALE)
-    );
-
-    return scaledPoints.map((c) => c.join(',')).join(' ');
+    return points;
   }
 
   static inscribed(sides: number) {

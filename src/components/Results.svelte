@@ -29,8 +29,8 @@
       </abbr>
     </p>
   </details>
-  <PolygonSummary polygon={inscribedPolygon} title="Inscribed" />
-  <PolygonSummary polygon={circumscribedPolygon} title="Circumscribed" />
+  <PolygonSummary polygon={inscribedPolygon} title="Inscribed (Inner) Polygon" />
+  <PolygonSummary polygon={circumscribedPolygon} title="Circumscribed (Outer) Polygon" />
 </div>
 
 <style>

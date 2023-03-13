@@ -2,9 +2,13 @@
   import {
     circumscribedSides,
     inscribedSides,
-    offsetCircumscribed,
     showCircumscribed,
+    showCircumscribedSegments,
     showInscribed,
+    showInscribedSegments,
+    offsetCircumscribed,
+    showCircle,
+    fillShapes,
   } from '../stores/settings';
 
   import PolygonSideSelector from './PolygonSideSelector.svelte';
@@ -12,6 +16,14 @@
 
   $: if (linked) {
     $circumscribedSides = $inscribedSides;
+  }
+
+  $: if ($inscribedSides > 128) {
+    $showInscribedSegments = false;
+  }
+
+  $: if ($circumscribedSides > 128) {
+    $showCircumscribedSegments = false;
   }
 </script>
 
@@ -21,12 +33,12 @@
     <div class="sides-selectors">
       <PolygonSideSelector
         bind:sides={$inscribedSides}
-        title="Inscribed Polygon Sides"
+        title="Inner Polygon Sides"
         id="inscribedSides"
       />
       <PolygonSideSelector
         bind:sides={$circumscribedSides}
-        title="Circumscribed Polygon Sides"
+        title="Outer Polygon Sides"
         id="circumscribedSides"
         disabled={linked}
       />
@@ -38,29 +50,54 @@
     </div>
   </div>
 
-  <label class="checkbox-field" for="show-inscribed"
-    >Show Inscribed Polygon
-    <input id="show-inscribed" type="checkbox" bind:checked={$showInscribed} />
-  </label>
+  <div class="toggles">
+    <label class="checkbox-field">
+      Fill Shapes
+      <input type="checkbox" bind:checked={$fillShapes} />
+    </label>
 
-  <label class="checkbox-field" for="show-circumscribed"
-    >Show Circumscribed Polygon
-    <input
-      id="show-circumscribed"
-      type="checkbox"
-      bind:checked={$showCircumscribed}
-    />
-  </label>
+    <label class="checkbox-field">
+      Show Circle
+      <input type="checkbox" bind:checked={$showCircle} />
+    </label>
 
-  <label class="checkbox-field" for="offset-circumscribed"
-    >Offset Circumscribed Polygon Angle
-    <input
-      id="offset-circumscribed"
-      type="checkbox"
-      bind:checked={$offsetCircumscribed}
-      disabled={!$showCircumscribed}
-    />
-  </label>
+    <label class="checkbox-field">
+      Show Inner Polygon
+      <input type="checkbox" bind:checked={$showInscribed} />
+    </label>
+
+    <label class="checkbox-field">
+      Show Inner Polygon Segments
+      <input
+        type="checkbox"
+        bind:checked={$showInscribedSegments}
+        disabled={!$showInscribed || $inscribedSides > 128}
+      />
+    </label>
+
+    <label class="checkbox-field">
+      Show Outer Polygon
+      <input type="checkbox" bind:checked={$showCircumscribed} />
+    </label>
+
+    <label class="checkbox-field">
+      Show Outer Polygon Segments
+      <input
+        type="checkbox"
+        bind:checked={$showCircumscribedSegments}
+        disabled={!$showCircumscribed || $circumscribedSides > 128}
+      />
+    </label>
+
+    <label class="checkbox-field">
+      Offset Outer Polygon Angle
+      <input
+        type="checkbox"
+        bind:checked={$offsetCircumscribed}
+        disabled={!$showCircumscribed}
+      />
+    </label>
+  </div>
 </div>
 
 <style>
@@ -88,7 +125,14 @@
     opacity: 1;
   }
 
+  .toggles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1em;
+  }
+
   .checkbox-field {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 0.5em;
